@@ -7,6 +7,7 @@
    This acts as the view in a MVC pattern and is responsible for all user interection.
    For game logic see the FBullCowGame class
  */
+//Creating alias for types, exaclty the same effect of typedef (C style)
 using FText = std::string;
 using int32 = int;
 //Function prototypes

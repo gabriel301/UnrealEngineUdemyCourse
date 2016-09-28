@@ -3,6 +3,13 @@
 
 using FString = std::string;
 using int32 = int;
+
+struct BullCowCount
+{
+	int32 bulls = 0;
+	int32 cows = 0;
+};
+
 class FBullCowGame 
 {
 public:
@@ -22,8 +29,8 @@ public:
 	bool isGameWon() const;
 	bool checkGuessValidity(FString);
 	void setCurrentTry(int32);
-	//TODO provide a method for counting bulls & coes and increasing turn number
-
+	//counts bulls and cows and increases try number assuming a valid guess
+	BullCowCount submitGuess(FString);
 private:
 		//properties/members
 		int32 myCurrentTry_;

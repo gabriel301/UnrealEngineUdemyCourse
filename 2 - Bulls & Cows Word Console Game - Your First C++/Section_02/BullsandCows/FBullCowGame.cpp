@@ -11,12 +11,14 @@ FBullCowGame::~FBullCowGame()
 void FBullCowGame::reset()
 {
 	constexpr int32 MAX_TRIES = 8; //constexpr is evaluated at compile time, whereas const mught be evaluated at compile time
+	const FString HIDDEN_WORD = "planet";
 	this->nMaxIsogramLength_ = 0;
 	this->isGameWon_ = false;
 	this->isogram_ = "";
 	this->myCurrentTry_ = 1;
 	this->nMaxIsogramLength_ = 0;
 	this->nMaxTries_ = MAX_TRIES;
+	this->isogram_ = HIDDEN_WORD;
 	return;
 }
 
@@ -72,6 +74,18 @@ bool FBullCowGame::checkGuessValidity(FString)
 void FBullCowGame::setCurrentTry(int32 myCurrentTry)
 {
 	this->myCurrentTry_ = myCurrentTry;
+}
+
+//Receives a valid guess, increments turn and returns count
+BullCowCount FBullCowGame::submitGuess(FString)
+{
+	//increments the turn number
+	this->setCurrentTry(this->getCurrentTry() + 1);
+	//setup a return variable
+	BullCowCount bullCowCount;
+	//loop through all letter in the guess
+		//compare letters against the hidden word
+	return bullCowCount;
 }
 
 bool FBullCowGame::isIsogram(FString)
