@@ -10,7 +10,7 @@ FBullCowGame::~FBullCowGame()
 
 void FBullCowGame::reset()
 {
-	constexpr int MAX_TRIES = 8; //constexpr is evaluated at compile time, whereas const mught be evaluated at compile time
+	constexpr int32 MAX_TRIES = 8; //constexpr is evaluated at compile time, whereas const mught be evaluated at compile time
 	this->nMaxIsogramLength_ = 0;
 	this->isGameWon_ = false;
 	this->isogram_ = "";
@@ -21,40 +21,40 @@ void FBullCowGame::reset()
 }
 
 //const at the end of method definition means this method cannot member variable values
-int FBullCowGame::getnMaxTries() const
+int32 FBullCowGame::getnMaxTries() const
 {
 	return nMaxTries_;
 
 }
 
-void FBullCowGame::setIsogram(std::string)
+void FBullCowGame::setIsogram(FString)
 {
 }
 
-std::string FBullCowGame::getIsogram() const
+FString FBullCowGame::getIsogram() const
 {
-	return std::string();
+	return FString();
 }
 
-void FBullCowGame::setnMaxTries(int nmaxTries)
+void FBullCowGame::setnMaxTries(int32 nmaxTries)
 {
 	this->nMaxTries_ = nmaxTries;
 	// (*this).nMaxTries_ = maxTries; get the value of this pointer
 	return;
 }
 
-int FBullCowGame::getIsogramMaxLength() const
+int32 FBullCowGame::getIsogramMaxLength() const
 {
 	return nMaxIsogramLength_;
 }
 
-void FBullCowGame::setIsogramMaxLength(int nMaxIsogramLength)
+void FBullCowGame::setIsogramMaxLength(int32 nMaxIsogramLength)
 {
 	this->nMaxIsogramLength_ = nMaxIsogramLength;
 	return;
 }
 
-int FBullCowGame::getCurrentTry() const
+int32 FBullCowGame::getCurrentTry() const
 {
 	return myCurrentTry_;
 }
@@ -64,17 +64,17 @@ bool FBullCowGame::isGameWon() const
 	return isGameWon_;
 }
 
-bool FBullCowGame::checkGuessValidity(std::string)
+bool FBullCowGame::checkGuessValidity(FString)
 {
 	return false;
 }
 
-void FBullCowGame::setCurrentTry(int myCurrentTry)
+void FBullCowGame::setCurrentTry(int32 myCurrentTry)
 {
 	this->myCurrentTry_ = myCurrentTry;
 }
 
-bool FBullCowGame::isIsogram(std::string)
+bool FBullCowGame::isIsogram(FString)
 {
 	return false;
 }

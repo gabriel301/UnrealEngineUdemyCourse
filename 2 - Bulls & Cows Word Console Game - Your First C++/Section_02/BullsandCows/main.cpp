@@ -3,10 +3,15 @@
 #include <ctype.h>
 #include"FBullCowGame.h"
 
-
+/* This is the console executable qthat makes use of the BullCow class
+   This acts as the view in a MVC pattern and is responsible for all user interection.
+   For game logic see the FBullCowGame class
+ */
+using FText = std::string;
+using int32 = int;
 //Function prototypes
 void printIntro();
-std::string getGuess();
+FText getGuess();
 void playGame();
 bool askToPlayAgain();
 
@@ -32,7 +37,7 @@ void printIntro()
 {
 	// introduce the game
 	//constexpr is evaluated at compile time, whereas const might be evaluated at compile time
-	constexpr int WORLD_LENGTH = 9;
+	constexpr int32 WORLD_LENGTH = 9;
 	std::cout << "Welcome to Bulls and Cows, a fun word game.\n";
 	std::cout << "Can you guess the " << WORLD_LENGTH;
 	std::cout << " letter isogram I'm thinking of?\n";
@@ -40,11 +45,11 @@ void printIntro()
 	return;
 }
 
-std::string getGuess()
+FText getGuess()
 {
 	// get a guess from the player
 	std::cout << "Enter your guess: ";
-	std::string guess = "";
+	FText guess = "";
 	std::getline(std::cin, guess);
 	return guess;
 
@@ -53,10 +58,10 @@ void playGame()
 {
 	
 	bcGame.reset();
-	int nMaxTries = bcGame.getnMaxTries();
-	std::string guess = "";
+	int32 nMaxTries = bcGame.getnMaxTries();
+	FText guess = "";
 	//TODO change from FOR to WHILE loop once we validated tries
-	for (int i = 1; i<= nMaxTries; i++)
+	for (int32 i = 1; i<= nMaxTries; i++)
 	{
 		bcGame.setCurrentTry(i);
 		std::cout << "Try " << bcGame.getCurrentTry() << ":\n";
@@ -69,7 +74,7 @@ void playGame()
 }
 bool askToPlayAgain()
 {
-	std::string response = "";
+	FText response = "";
 	std::cout << "Do you want to play again? ";
 	std::getline(std::cin, response);
 	return (((char)tolower(response[0])) == 'y');
