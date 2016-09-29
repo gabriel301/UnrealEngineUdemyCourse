@@ -64,12 +64,15 @@ void playGame()
 	//TODO change from FOR to WHILE loop once we validated tries
 	for (int32 i = 1; i<= nMaxTries; i++)
 	{
-		bcGame.setCurrentTry(i);
+		//bcGame.setCurrentTry(i);
 		std::cout << "Try " << bcGame.getCurrentTry() << ":\n";
 		guess = getGuess(); //TODO make guess validation
 		// Submit valid guess to the game
+		FBullCowCount nBullsCows = bcGame.submitGuess(guess);
 		//print number of bulls and cows
-		std::cout << "Your guess was: " << guess << std::endl;
+
+		std::cout <<"Bulls: " << nBullsCows.bulls << std::endl;
+		std::cout << "Cows: " << nBullsCows.cows << std::endl;
 	}
 	//TODO show a game summary
 }

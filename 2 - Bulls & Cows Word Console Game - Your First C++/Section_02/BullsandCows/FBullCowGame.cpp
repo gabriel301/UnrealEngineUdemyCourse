@@ -19,6 +19,7 @@ void FBullCowGame::reset()
 	this->nMaxIsogramLength_ = 0;
 	this->nMaxTries_ = MAX_TRIES;
 	this->isogram_ = HIDDEN_WORD;
+	this->nIsogramLength_ = (int32)this->isogram_.length();
 	return;
 }
 
@@ -77,14 +78,26 @@ void FBullCowGame::setCurrentTry(int32 myCurrentTry)
 }
 
 //Receives a valid guess, increments turn and returns count
-BullCowCount FBullCowGame::submitGuess(FString)
+FBullCowCount FBullCowGame::submitGuess(FString guess)
 {
 	//increments the turn number
 	this->setCurrentTry(this->getCurrentTry() + 1);
 	//setup a return variable
-	BullCowCount bullCowCount;
-	//loop through all letter in the guess
-		//compare letters against the hidden word
+	FBullCowCount bullCowCount;
+
+	for (int32 isogramIndex = 0; isogramIndex<this->nIsogramLength_; isogramIndex++)
+	{
+		for (int32 guessIndex = 0; guessIndex<this->nIsogramLength_; guessIndex++)
+		{
+			if (guess[guessIndex] == this->isogram_[isogramIndex])
+			{
+				if (guessIndex == isogramIndex)
+					bullCowCount.bulls++;
+				else
+					bullCowCount.cows++;
+			}
+		}
+	}
 	return bullCowCount;
 }
 

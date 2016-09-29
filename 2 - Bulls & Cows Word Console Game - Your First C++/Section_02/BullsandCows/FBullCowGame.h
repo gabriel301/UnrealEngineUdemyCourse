@@ -4,7 +4,7 @@
 using FString = std::string;
 using int32 = int;
 
-struct BullCowCount
+struct FBullCowCount
 {
 	int32 bulls = 0;
 	int32 cows = 0;
@@ -29,13 +29,15 @@ public:
 	bool isGameWon() const;
 	bool checkGuessValidity(FString);
 	void setCurrentTry(int32);
+	int32 getIsogramLength();
 	//counts bulls and cows and increases try number assuming a valid guess
-	BullCowCount submitGuess(FString);
+	FBullCowCount submitGuess(FString);
 private:
 		//properties/members
 		int32 myCurrentTry_;
 		int32 nMaxTries_;
 		int32 nMaxIsogramLength_;
+		int32 nIsogramLength_;
 		FString isogram_;
 		bool isGameWon_;
 		//methods
