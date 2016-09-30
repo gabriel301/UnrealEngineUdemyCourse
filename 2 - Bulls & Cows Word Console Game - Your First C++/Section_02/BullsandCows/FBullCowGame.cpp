@@ -19,7 +19,6 @@ void FBullCowGame::reset()
 	this->nMaxIsogramLength_ = 0;
 	this->nMaxTries_ = MAX_TRIES;
 	this->isogram_ = HIDDEN_WORD;
-	this->nIsogramLength_ = (int32)this->isogram_.length();
 	return;
 }
 
@@ -67,7 +66,7 @@ bool FBullCowGame::isGameWon() const
 	return isGameWon_;
 }
 
-bool FBullCowGame::checkGuessValidity(FString)
+bool FBullCowGame::checkGuessValidity(FString) const
 {
 	return false;
 }
@@ -77,6 +76,11 @@ void FBullCowGame::setCurrentTry(int32 myCurrentTry)
 	this->myCurrentTry_ = myCurrentTry;
 }
 
+int32 FBullCowGame::getIsogramLength() const
+{
+	return this->isogram_.length();
+}
+
 //Receives a valid guess, increments turn and returns count
 FBullCowCount FBullCowGame::submitGuess(FString guess)
 {
@@ -84,10 +88,10 @@ FBullCowCount FBullCowGame::submitGuess(FString guess)
 	this->setCurrentTry(this->getCurrentTry() + 1);
 	//setup a return variable
 	FBullCowCount bullCowCount;
-
-	for (int32 isogramIndex = 0; isogramIndex<this->nIsogramLength_; isogramIndex++)
+	int nIsogramLength = this->getIsogramLength();
+	for (int32 isogramIndex = 0; isogramIndex<nIsogramLength; isogramIndex++)
 	{
-		for (int32 guessIndex = 0; guessIndex<this->nIsogramLength_; guessIndex++)
+		for (int32 guessIndex = 0; guessIndex<nIsogramLength; guessIndex++)
 		{
 			if (guess[guessIndex] == this->isogram_[isogramIndex])
 			{

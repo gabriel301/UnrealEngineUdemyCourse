@@ -27,9 +27,9 @@ public:
 	void setIsogramMaxLength(int32);
 	int32 getCurrentTry() const;
 	bool isGameWon() const;
-	bool checkGuessValidity(FString);
+	bool checkGuessValidity(FString) const;
 	void setCurrentTry(int32);
-	int32 getIsogramLength();
+	int32 getIsogramLength() const;
 	//counts bulls and cows and increases try number assuming a valid guess
 	FBullCowCount submitGuess(FString);
 private:
@@ -37,7 +37,6 @@ private:
 		int32 myCurrentTry_;
 		int32 nMaxTries_;
 		int32 nMaxIsogramLength_;
-		int32 nIsogramLength_;
 		FString isogram_;
 		bool isGameWon_;
 		//methods
