@@ -1,3 +1,6 @@
-﻿  FBullCowGame.cpp
+﻿  main.cpp
+  FBullCowGame.cpp
+c:\users\g.ferreira.oliveira\documents\udemy\unreal\unrealengineudemycourse\2 - bulls & cows word console game - your first c++\section_02\bullsandcows\fbullcowgame.cpp(135): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   BullsandCows.vcxproj -> C:\Users\g.ferreira.oliveira\Documents\Udemy\Unreal\UnrealEngineUdemyCourse\2 - Bulls & Cows Word Console Game - Your First C++\Section_02\Debug\BullsandCows.exe
   BullsandCows.vcxproj -> C:\Users\g.ferreira.oliveira\Documents\Udemy\Unreal\UnrealEngineUdemyCourse\2 - Bulls & Cows Word Console Game - Your First C++\Section_02\Debug\BullsandCows.pdb (Full PDB)

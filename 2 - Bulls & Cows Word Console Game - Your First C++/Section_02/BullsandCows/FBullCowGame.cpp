@@ -13,7 +13,7 @@ void FBullCowGame::reset()
 	constexpr int32 MAX_TRIES = 8; //constexpr is evaluated at compile time, whereas const mught be evaluated at compile time
 	const FString HIDDEN_WORD = "planet";
 	this->nMaxIsogramLength_ = 0;
-	this->isGameWon_ = false;
+	this->bIsGameWon_ = false;
 	this->isogram_ = "";
 	this->myCurrentTry_ = 1;
 	this->nMaxIsogramLength_ = 0;
@@ -63,12 +63,33 @@ int32 FBullCowGame::getCurrentTry() const
 
 bool FBullCowGame::isGameWon() const
 {
-	return isGameWon_;
+	return this->bIsGameWon_;
 }
 
-bool FBullCowGame::checkGuessValidity(FString) const
+EWordStatus FBullCowGame::checkGuessValidity(FString guess) 
 {
-	return false;
+	FString guessLower = guess;
+
+	//converts guess to lowercasee
+	std::transform(guess.begin(), guess.end(), guessLower.begin(), ::tolower);
+
+	if (!(this->isIsogram_(guess)))
+	{
+		return EWordStatus::NOT_ISOGRAM;
+	}
+	else if (strcmp(guess.c_str(),guessLower.c_str())!=0)
+	{
+		return EWordStatus::NOT_LOWERCASE;
+	}
+	else if (this->getIsogramLength() != guess.length())
+	{		
+		return EWordStatus::WRONG_LENGTH;
+	}
+	else
+	{
+		return EWordStatus::OK; //TODO MAKE ACTUAL ERROR
+	}
+	
 }
 
 void FBullCowGame::setCurrentTry(int32 myCurrentTry)
@@ -82,13 +103,14 @@ int32 FBullCowGame::getIsogramLength() const
 }
 
 //Receives a valid guess, increments turn and returns count
-FBullCowCount FBullCowGame::submitGuess(FString guess)
+FBullCowCount FBullCowGame::submitValidGuess(FString guess)
 {
-	//increments the turn number
 	this->setCurrentTry(this->getCurrentTry() + 1);
-	//setup a return variable
+
 	FBullCowCount bullCowCount;
 	int nIsogramLength = this->getIsogramLength();
+
+	//Assuming Guess and Hidden Word has the same length
 	for (int32 isogramIndex = 0; isogramIndex<nIsogramLength; isogramIndex++)
 	{
 		for (int32 guessIndex = 0; guessIndex<nIsogramLength; guessIndex++)
@@ -102,10 +124,26 @@ FBullCowCount FBullCowGame::submitGuess(FString guess)
 			}
 		}
 	}
+	//Game is won if bulls count is equals the Hidden Word Length
+	this->bIsGameWon_ = (bullCowCount.bulls == nIsogramLength);
 	return bullCowCount;
 }
 
-bool FBullCowGame::isIsogram(FString)
+bool FBullCowGame::isIsogram_(FString word)
 {
-	return false;
+	
+	for (int i = 0; i < word.length(); i++)
+	{
+		int first = word.find(word[i]);
+		int last = word.rfind(word[i]);
+		//if one letter appears in 2 different positions at the string, means it is repeated and then the word is not an isogram
+		if (first != last)
+		{
+			return false;
+		}
+				
+	}
+	return true;
 }
+
+

@@ -22,10 +22,9 @@ FBullCowGame bcGame; //instantiate a new game (object on the stack)
 int main()
 {
 	bool bPlayAgain = false;
-	printIntro();
 	do 
 	{
-		
+		printIntro();
 		playGame();
 		bPlayAgain = askToPlayAgain();
 		
@@ -46,12 +45,30 @@ void printIntro()
 	return;
 }
 
-FText getGuess()
+FText getValidGuess()
 {
-	// get a guess from the player
-	std::cout << "Enter your guess: ";
 	FText guess = "";
-	std::getline(std::cin, guess);
+	EWordStatus status = EWordStatus::INVALID_STATUS;
+	// get a valid guess from the player
+	do
+	{
+		std::cout << "Enter your guess: ";
+		std::getline(std::cin, guess);
+		status = bcGame.checkGuessValidity(guess);
+		switch (status)
+		{
+			case EWordStatus::NOT_ISOGRAM:
+				std::cout << "Please enter an isogram word!\n";
+				break;
+			case EWordStatus::WRONG_LENGTH:
+				std::cout << "Please enter a " << bcGame.getIsogramLength() << " letter word!\n";
+				break;
+			case EWordStatus::NOT_LOWERCASE:
+				std::cout << "Please enter a lowercase word!\n";
+				break;
+		}
+	} while (status != EWordStatus::OK);
+	
 	return guess;
 
 }
@@ -61,14 +78,15 @@ void playGame()
 	bcGame.reset();
 	int32 nMaxTries = bcGame.getnMaxTries();
 	FText guess = "";
-	//TODO change from FOR to WHILE loop once we validated tries
-	for (int32 i = 1; i<= nMaxTries; i++)
+	
+	while((!bcGame.isGameWon()) && (bcGame.getCurrentTry() <= nMaxTries))
 	{
 		//bcGame.setCurrentTry(i);
 		std::cout << "Try " << bcGame.getCurrentTry() << ":\n";
-		guess = getGuess(); //TODO make guess validation
+		
+		guess = getValidGuess();
 		// Submit valid guess to the game
-		FBullCowCount nBullsCows = bcGame.submitGuess(guess);
+		FBullCowCount nBullsCows = bcGame.submitValidGuess(guess);
 		//print number of bulls and cows
 
 		std::cout <<"Bulls: " << nBullsCows.bulls << std::endl;
