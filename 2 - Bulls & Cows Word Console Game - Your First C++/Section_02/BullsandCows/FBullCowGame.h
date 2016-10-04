@@ -1,10 +1,15 @@
 #pragma once
 #include<string>
 #include<algorithm>
+#include<iostream>
+#include <map>
+
+#define TMap std::map
+
 using FString = std::string;
 using int32 = int;
 
-//Enum Class are prefered over plain enums because its labels are "local", ie, you can reuse labels name in other enum classes
+//Enum Class are preferred over plain enums because its labels are "local", ie, you can reuse labels name in other enum classes
 enum class EWordStatus 
 {
 	INVALID_STATUS,
@@ -43,6 +48,7 @@ public:
 	int32 getIsogramLength() const;
 	//counts bulls and cows and increases try number assuming a valid guess
 	FBullCowCount submitValidGuess(FString);
+	void PrintGameSummary() const;
 private:
 		//properties/members
 		int32 myCurrentTry_;
@@ -52,5 +58,6 @@ private:
 		bool bIsGameWon_;
 		//methods
 		bool isIsogram_(FString);
+		bool isLowerCase_(FString);
 			
 };

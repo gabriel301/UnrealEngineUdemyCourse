@@ -93,6 +93,8 @@ void playGame()
 		std::cout << "Cows: " << nBullsCows.cows << std::endl;
 	}
 	//TODO show a game summary
+	bcGame.PrintGameSummary();
+	return;
 }
 bool askToPlayAgain()
 {

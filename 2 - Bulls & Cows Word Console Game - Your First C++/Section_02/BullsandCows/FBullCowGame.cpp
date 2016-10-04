@@ -10,7 +10,7 @@ FBullCowGame::~FBullCowGame()
 
 void FBullCowGame::reset()
 {
-	constexpr int32 MAX_TRIES = 8; //constexpr is evaluated at compile time, whereas const mught be evaluated at compile time
+	constexpr int32 MAX_TRIES = 2; //constexpr is evaluated at compile time, whereas const mught be evaluated at compile time
 	const FString HIDDEN_WORD = "planet";
 	this->nMaxIsogramLength_ = 0;
 	this->bIsGameWon_ = false;
@@ -35,7 +35,7 @@ void FBullCowGame::setIsogram(FString)
 
 FString FBullCowGame::getIsogram() const
 {
-	return FString();
+	return this->isogram_;
 }
 
 void FBullCowGame::setnMaxTries(int32 nmaxTries)
@@ -68,16 +68,13 @@ bool FBullCowGame::isGameWon() const
 
 EWordStatus FBullCowGame::checkGuessValidity(FString guess) 
 {
-	FString guessLower = guess;
-
-	//converts guess to lowercasee
-	std::transform(guess.begin(), guess.end(), guessLower.begin(), ::tolower);
+	
 
 	if (!(this->isIsogram_(guess)))
 	{
 		return EWordStatus::NOT_ISOGRAM;
 	}
-	else if (strcmp(guess.c_str(),guessLower.c_str())!=0)
+	else if (!this->isLowerCase_(guess))
 	{
 		return EWordStatus::NOT_LOWERCASE;
 	}
@@ -129,19 +126,41 @@ FBullCowCount FBullCowGame::submitValidGuess(FString guess)
 	return bullCowCount;
 }
 
+void FBullCowGame::PrintGameSummary() const
+{
+	if (this->isGameWon())
+		std::cout << "Congratilations! You win the game!\n";
+	else
+		std::cout << "Game Over! The hidden word was "<<this->getIsogram()<<"\n";
+}
+
+
 bool FBullCowGame::isIsogram_(FString word)
 {
 	
-	for (int i = 0; i < word.length(); i++)
+	TMap<char, bool> hashTable;
+
+	if (word.length() < 2)
+		return true;
+
+	for (auto letter : word)
 	{
-		int first = word.find(word[i]);
-		int last = word.rfind(word[i]);
-		//if one letter appears in 2 different positions at the string, means it is repeated and then the word is not an isogram
-		if (first != last)
-		{
+		letter = tolower(letter);
+		if (hashTable[letter])
 			return false;
-		}
-				
+		else
+			hashTable[letter] = true;
+	}
+
+	return true;
+}
+
+bool FBullCowGame::isLowerCase_(FString word)
+{
+	for (auto letter : word)
+	{
+		if (!islower(letter))
+			return false;
 	}
 	return true;
 }
