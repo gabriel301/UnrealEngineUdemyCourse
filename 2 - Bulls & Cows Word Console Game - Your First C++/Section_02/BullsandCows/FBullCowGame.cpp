@@ -1,3 +1,5 @@
+#pragma once
+
 #include "FBullCowGame.h"
 FBullCowGame::FBullCowGame()
 {
@@ -10,14 +12,14 @@ FBullCowGame::~FBullCowGame()
 
 void FBullCowGame::reset()
 {
-	constexpr int32 MAX_TRIES = 2; //constexpr is evaluated at compile time, whereas const mught be evaluated at compile time
-	const FString HIDDEN_WORD = "planet";
+	//constexpr int32 MAX_TRIES = 2; //constexpr is evaluated at compile time, whereas const mught be evaluated at compile time
+	const FString HIDDEN_WORD = "planet"; //it must be an isogram
 	this->nMaxIsogramLength_ = 0;
 	this->bIsGameWon_ = false;
 	this->isogram_ = "";
 	this->myCurrentTry_ = 1;
 	this->nMaxIsogramLength_ = 0;
-	this->nMaxTries_ = MAX_TRIES;
+	this->nMaxTries_ = this->getnMaxTries();
 	this->isogram_ = HIDDEN_WORD;
 	return;
 }
@@ -25,7 +27,8 @@ void FBullCowGame::reset()
 //const at the end of method definition means this method cannot member variable values
 int32 FBullCowGame::getnMaxTries() const
 {
-	return nMaxTries_;
+	TMap<int32, int32> wordLengthtoMaxTries{ {3,5},{4,6},{5,7},{6,8},{7,9} };
+	return wordLengthtoMaxTries[this->getIsogramLength()];
 
 }
 
@@ -84,7 +87,7 @@ EWordStatus FBullCowGame::checkGuessValidity(FString guess)
 	}
 	else
 	{
-		return EWordStatus::OK; //TODO MAKE ACTUAL ERROR
+		return EWordStatus::OK; 
 	}
 	
 }
@@ -126,7 +129,7 @@ FBullCowCount FBullCowGame::submitValidGuess(FString guess)
 	return bullCowCount;
 }
 
-void FBullCowGame::PrintGameSummary() const
+void FBullCowGame::printGameSummary() const
 {
 	if (this->isGameWon())
 		std::cout << "Congratilations! You win the game!\n";

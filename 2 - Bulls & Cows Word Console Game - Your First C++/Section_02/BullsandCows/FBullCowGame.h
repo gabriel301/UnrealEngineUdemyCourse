@@ -10,6 +10,9 @@ using FString = std::string;
 using int32 = int;
 
 //Enum Class are preferred over plain enums because its labels are "local", ie, you can reuse labels name in other enum classes
+/*
+	Enum Class designed to store the word status in order to check the word validity
+*/
 enum class EWordStatus 
 {
 	INVALID_STATUS,
@@ -20,12 +23,20 @@ enum class EWordStatus
 };
 
 
+/*
+	Struct designed to store the count of bulls and cows os the current turn
+*/
 struct FBullCowCount
 {
 	int32 bulls = 0;
 	int32 cows = 0;
 };
 
+
+
+/*
+	Class designed to manage all game logic and store the current state of the game
+*/
 class FBullCowGame 
 {
 public:
@@ -48,7 +59,7 @@ public:
 	int32 getIsogramLength() const;
 	//counts bulls and cows and increases try number assuming a valid guess
 	FBullCowCount submitValidGuess(FString);
-	void PrintGameSummary() const;
+	void printGameSummary() const;
 private:
 		//properties/members
 		int32 myCurrentTry_;

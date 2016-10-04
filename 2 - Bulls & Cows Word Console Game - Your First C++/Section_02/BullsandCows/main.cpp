@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <string>
 #include <ctype.h>
@@ -12,7 +14,7 @@ using FText = std::string;
 using int32 = int;
 //Function prototypes
 void printIntro();
-FText getGuess();
+FText getValidGuess();
 void playGame();
 bool askToPlayAgain();
 
@@ -81,20 +83,20 @@ void playGame()
 	
 	while((!bcGame.isGameWon()) && (bcGame.getCurrentTry() <= nMaxTries))
 	{
-		//bcGame.setCurrentTry(i);
+	
 		std::cout << "Try " << bcGame.getCurrentTry() << " of "<<bcGame.getnMaxTries()<<"\n";
 		std::cout << "Enter you guess: ";
 		
 		guess = getValidGuess();
-		// Submit valid guess to the game
+	
 		FBullCowCount nBullsCows = bcGame.submitValidGuess(guess);
-		//print number of bulls and cows
+		
 
 		std::cout <<"Bulls: " << nBullsCows.bulls << std::endl;
 		std::cout << "Cows: " << nBullsCows.cows << std::endl;
 	}
-	//TODO show a game summary
-	bcGame.PrintGameSummary();
+
+	bcGame.printGameSummary();
 	return;
 }
 bool askToPlayAgain()
