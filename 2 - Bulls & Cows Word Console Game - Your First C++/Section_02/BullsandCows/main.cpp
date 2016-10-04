@@ -82,7 +82,8 @@ void playGame()
 	while((!bcGame.isGameWon()) && (bcGame.getCurrentTry() <= nMaxTries))
 	{
 		//bcGame.setCurrentTry(i);
-		std::cout << "Try " << bcGame.getCurrentTry() << ":\n";
+		std::cout << "Try " << bcGame.getCurrentTry() << " of "<<bcGame.getnMaxTries()<<"\n";
+		std::cout << "Enter you guess: ";
 		
 		guess = getValidGuess();
 		// Submit valid guess to the game
